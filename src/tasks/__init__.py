@@ -28,7 +28,7 @@ def check_data_blocks():
 				subscription.service_codes.append(codes.get("Data Block"))
 			
 			if statistics.get("over_limit") == False and data_blocked:
-					subscription.service_codes.remove(codes.get("Data Block"))
+				subscription.service_codes.remove(codes.get("Data Block"))
 
 		elif data_blocked == False:
 			subscription.service_codes.append(codes.get("Data Block"))
