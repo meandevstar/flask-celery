@@ -9,7 +9,6 @@ from datetime import datetime, timezone
 
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
 revision = '49952fde9c90'
@@ -265,7 +264,7 @@ def upgrade():
     subscriptions = op.create_table('subscriptions',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('phone_number', sa.String(length=10), nullable=True),
-        sa.Column('status', postgresql.ENUM('new', 'active', 'suspended', 'expired', name='subscriptionstatus'), nullable=True),
+        sa.Column('status', sa.Enum('new', 'active', 'suspended', 'expired'), nullable=True),
         sa.Column('plan_id', sa.String(length=30), nullable=False),
         sa.ForeignKeyConstraint(['plan_id'], ['plans.id'], ),
         sa.PrimaryKeyConstraint('id')

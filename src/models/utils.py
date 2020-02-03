@@ -19,6 +19,9 @@ def get_object_or_404(model, mid):
 
     """
     try:
-        return model.query.one(pk=mid)
+        return model.query.get(mid)
     except SQLAlchemyError:
         abort(404)
+
+def convert_mb_to_gb(mb):
+    return round(mb / 1024, 2)

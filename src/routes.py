@@ -16,7 +16,8 @@ def register_routes(_app):
     """
     from src.resources.subscriptions import (
         SubscriptionAPI,
-        SubscriptionListAPI
+        SubscriptionListAPI,
+        SubscriptionDataUsageAPI
     )
 
     api_blueprint = Blueprint("api", __name__)
@@ -26,5 +27,7 @@ def register_routes(_app):
         SubscriptionAPI, "/subscription/<int:sid>/", strict_slashes=False)
     api.add_resource(
         SubscriptionListAPI, "/subscriptions/", strict_slashes=False)
+    api.add_resource(
+        SubscriptionDataUsageAPI, "/subscription/<int:sid>/usages", strict_slashes=False)
 
     _app.register_blueprint(api_blueprint, url_prefix="/api")

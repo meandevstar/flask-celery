@@ -5,10 +5,7 @@ from src.models.base import db
 
 
 class BillingCycle(db.Model):
-    """Model class to represent billing cycle dates
-
-    NOTE: this is probably temporary....
-    """
+    """Model class to represent billing cycle dates"""
 
     __tablename__ = "billing_cycles"
 

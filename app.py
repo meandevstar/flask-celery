@@ -5,9 +5,11 @@ Example::
 
 """
 import config
-from src import create_app
+from src import create_app, make_celery
 
 app = create_app(config.DevelopmentConfig)
+
+celery = make_celery(app)
 
 
 @app.shell_context_processor

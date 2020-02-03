@@ -13,5 +13,11 @@ class DevelopmentConfig(object):
     SECRET_KEY = "test"
     ENCRYPTION_KEY = "test"
 
+    REDIS_HOST = "0.0.0.0"
+    REDIS_PORT = 6379
+    CELERY_BROKER_URL = os.environ.get('REDIS_URL', "redis://{host}:{port}/0".format(
+        host=REDIS_HOST, port=str(REDIS_PORT)))
+    CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True

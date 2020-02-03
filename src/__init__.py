@@ -3,6 +3,30 @@ import logging.config
 
 from flask import Flask
 from sqlalchemy import orm
+from celery import Celery
+import celeryconfig
+
+
+def make_celery(app):
+    celery = Celery(
+        app.import_name,
+        backend=app.config["CELERY_RESULT_BACKEND"],
+        broker=app.config["CELERY_BROKER_URL"]
+    )
+    celery.conf.update(app.config)
+    celery.config_from_object(celeryconfig)
+    TaskBase = celery.Task
+
+    class ContextTask(TaskBase):
+        abstract = True
+        
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
+
+    celery.Task = ContextTask
+
+    return celery
 
 
 def create_app(config_obj=None):
