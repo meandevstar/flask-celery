@@ -18,7 +18,12 @@
 ## Starting celery cron
 Configure Redis for celery, check configcelery.py for more details
 
+- Run celery scheduler in every 10 seconds
 ```bash
-	$ celery beat -A app.celery
+	$ celery beat -A app.celery --schedule=/tmp/celerybeat-schedule --loglevel=INFO --pidfile=/tmp/celerybeat.pid --max-interval=10
 ```
 
+- Run celery worker
+```bash
+	$ celery worker -A app.celery --loglevel=INFO
+```
